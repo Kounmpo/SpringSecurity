@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * 通过自定义实现类实现用户的登录授权
  * @author jiehui.huang
  * @version 1.0
  * @date 2021/7/29 1:24
  */
-@Service("userDetailsService")
+// @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

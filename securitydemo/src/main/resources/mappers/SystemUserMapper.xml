@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hui.securitydemo.mapper.SystemUserMapper">
+    <resultMap id="BaseResultMap" type="com.hui.securitydemo.entity.SystemUser">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="user_code" jdbcType="VARCHAR" property="userCode"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="disabled" jdbcType="BOOLEAN" property="disabled"/>
+    </resultMap>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select user_id,
+               user_code,
+               user_name,
+               password,
+               full_name,
+               mobile,
+               disabled
+        from system_user
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <select id="selectOne" resultType="SystemUser">
+        select user_id,
+               user_code,
+               user_name,
+               password,
+               full_name,
+               mobile,
+               disabled
+        from system_user
+        where user_name = #{userName}
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from system_user
+        where user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="SystemUser" useGeneratedKeys="true">
+        insert into system_user (user_code, user_name, `password`,
+                                 full_name, mobile, disabled)
+        values (#{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{fullName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{disabled,jdbcType=BOOLEAN})
+    </insert>
+    <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="SystemUser"
+            useGeneratedKeys="true">
+        insert into system_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userCode != null">
+                user_code,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="fullName != null">
+                full_name,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="disabled != null">
+                disabled,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userCode != null">
+                #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="disabled != null">
+                #{disabled,jdbcType=BOOLEAN},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="SystemUser">
+        update system_user
+        <set>
+            <if test="userCode != null">
+                user_code = #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="fullName != null">
+                full_name = #{fullName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="disabled != null">
+                disabled = #{disabled,jdbcType=BOOLEAN},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="SystemUser">
+        update system_user
+        set user_code  = #{userCode,jdbcType=VARCHAR},
+            user_name  = #{userName,jdbcType=VARCHAR},
+            `password` = #{password,jdbcType=VARCHAR},
+            full_name  = #{fullName,jdbcType=VARCHAR},
+            mobile     = #{mobile,jdbcType=VARCHAR},
+            disabled   = #{disabled,jdbcType=BOOLEAN}
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+</mapper>
