@@ -24,4 +24,10 @@ public class SecurityController {
     public String add() {
         return "Hello Security!";
     }
+
+
+    @GetMapping("/index")
+    public String index() {
+        return "Hello Index";
+    }
 }

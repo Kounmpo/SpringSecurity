@@ -42,7 +42,7 @@ public class SystemUserServiceImpl implements ISystemUserService, UserDetailsSer
         List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList("role");
 
         // 从数据库返回SystemUser对象，得到用户名和密码
-        return new User(systemUser.getUserName(),
+        return new User(systemUser.getUsername(),
                 new CustomPasswordEncoder().encode(systemUser.getPassword()),
                 auth);
         // 还需要在启动类上添加一个注解@MapperScan 启动才能找到mapper

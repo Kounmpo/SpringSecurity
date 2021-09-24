@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.hui.securitydemo.entity.SystemUser">
         <id column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="user_code" jdbcType="VARCHAR" property="userCode"/>
-        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="username" jdbcType="VARCHAR" property="userName"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="full_name" jdbcType="VARCHAR" property="fullName"/>
         <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
@@ -13,7 +13,7 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select user_id,
                user_code,
-               user_name,
+               username,
                password,
                full_name,
                mobile,
@@ -24,13 +24,13 @@
     <select id="selectOne" resultType="SystemUser">
         select user_id,
                user_code,
-               user_name,
+               username,
                password,
                full_name,
                mobile,
                disabled
         from system_user
-        where user_name = #{userName}
+        where username = #{userName}
 
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -39,7 +39,7 @@
         where user_id = #{userId,jdbcType=BIGINT}
     </delete>
     <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="SystemUser" useGeneratedKeys="true">
-        insert into system_user (user_code, user_name, `password`,
+        insert into system_user (user_code, username, `password`,
                                  full_name, mobile, disabled)
         values (#{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
                 #{fullName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{disabled,jdbcType=BOOLEAN})
@@ -52,7 +52,7 @@
                 user_code,
             </if>
             <if test="userName != null">
-                user_name,
+                username,
             </if>
             <if test="password != null">
                 `password`,
@@ -95,7 +95,7 @@
                 user_code = #{userCode,jdbcType=VARCHAR},
             </if>
             <if test="userName != null">
-                user_name = #{userName,jdbcType=VARCHAR},
+                username = #{userName,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 `password` = #{password,jdbcType=VARCHAR},
@@ -115,7 +115,7 @@
     <update id="updateByPrimaryKey" parameterType="SystemUser">
         update system_user
         set user_code  = #{userCode,jdbcType=VARCHAR},
-            user_name  = #{userName,jdbcType=VARCHAR},
+            username  = #{userName,jdbcType=VARCHAR},
             `password` = #{password,jdbcType=VARCHAR},
             full_name  = #{fullName,jdbcType=VARCHAR},
             mobile     = #{mobile,jdbcType=VARCHAR},
